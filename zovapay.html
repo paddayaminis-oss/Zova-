@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zova Pay - Payments, Bills & Recharges</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #eaeded; /* Light background layout */
+        }
+
+        /* --- PRIMARY NAVBAR --- */
+        .navbar {
+            background-color: #131921; 
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            height: 60px;
+        }
+
+        .nav-logo a {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-location {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .nav-location:hover {
+            border: 1px solid white;
+        }
+        .nav-location i {
+            font-size: 18px;
+            margin-right: 3px;
+            color: #ff9900;
+        }
+        .location-text .line-1 {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .location-text .line-2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-search {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .search-select {
+            background-color: #f3f3f3;
+            border: none;
+            padding: 10px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #111;
+        }
+        .search-button:hover {
+            background-color: #f3a847;
+        }
+
+        .nav-lang {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .nav-lang select {
+            background: transparent;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin-left: 4px;
+        }
+
+        .nav-signin, .nav-orders, .nav-cart {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-signin:hover, .nav-orders:hover, .nav-cart:hover {
+            border: 1px solid white;
+        }
+        .nav-signin .top-line, .nav-orders .top-line {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .nav-signin .bottom-line, .nav-orders .bottom-line {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-cart {
+            display: flex;
+            align-items: flex-end;
+            font-weight: bold;
+        }
+        .nav-cart i {
+            font-size: 28px;
+            color: #ff9900;
+        }
+        .cart-count {
+            position: relative;
+            top: -12px;
+            left: -15px;
+            color: #ff9900;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .cart-text {
+            font-size: 14px;
+            margin-left: -5px;
+        }
+
+        /* --- SECONDARY NAVBAR --- */
+        .sub-navbar {
+            background-color: #232f3e;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+        .sub-navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        .sub-navbar li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .sub-navbar li a:hover {
+            border: 1px solid white;
+        }
+
+        /* --- ZOVA PAY BRAND HEADER --- */
+        .zovapay-header {
+            background-color: white;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+        .zovapay-logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #111;
+            letter-spacing: -0.5px;
+        }
+        .zovapay-logo span {
+            color: #ff9900;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+
+        /* LEFT SIDEBAR WIDGET (Balance & Wallet) */
+        .wallet-card {
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #d5d9d9;
+            overflow: hidden;
+            height: fit-content;
+        }
+        .wallet-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e7e7e7;
+        }
+        .wallet-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #0f1111;
+        }
+        .wallet-balance {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007600;
+        }
+        .wallet-actions {
+            padding: 10px 0;
+        }
+        .wallet-action-item {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #007185;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .wallet-action-item:hover {
+            background-color: #f7fafa;
+            color: #c45500;
+            text-decoration: underline;
+        }
+        .wallet-action-item i {
+            color: #ff9900;
+            font-size: 16px;
+        }
+
+        /* RIGHT CONTENT SECTIONS */
+        .pay-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .pay-section-box {
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #d5d9d9;
+            padding: 20px;
+        }
+        .pay-section-box h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0f1111;
+            margin-bottom: 20px;
+        }
+
+        /* SERVICES GRID */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .service-item {
+            text-decoration: none;
+            color: #0f1111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .service-item:hover {
+            background-color: #f7fafa;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .service-icon-box {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .service-icon-box i {
+            font-size: 32px;
+            color: #ff9900;
+        }
+        .service-name {
+            font-size: 13px;
+            line-height: 1.3;
+            color: #0f1111;
+        }
+
+        /* PROMOTIONAL BANNER CARDS */
+        .promo-banner-card {
+            background: linear-gradient(90deg, #ffd814 0%, #f7ca00 100%);
+            border-radius: 4px;
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #e7db60;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .promo-banner-text h3 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .promo-banner-img img {
+            height: 80px;
+            object-fit: contain;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #131921;
+            color: white;
+            font-size: 14px;
+            margin-top: 50px;
+        }
+        .footer-top {
+            background-color: #37475a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .footer-top:hover {
+            background-color: #485769;
+        }
+        .footer-links {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 40px 20px;
+            gap: 30px;
+        }
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            background-color: #10141b;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRIMARY NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">Zova</a>
+            </div>
+
+            <div class="nav-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="location-text">
+                    <div class="line-1">Delivering to Hyderabad 500050</div>
+                    <div class="line-2">Update Location</div>
+                </div>
+            </div>
+
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                    <option>Zova Pay</option>
+                    <option>Electronics</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Search Zova.in">
+                <button class="search-button">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-lang">
+                <i class="fa-solid fa-globe"></i>
+                <select>
+                    <option value="EN">EN</option>
+                    <option value="HI">HI</option>
+                    <option value="TE">TE</option>
+                </select>
+            </div>
+
+            <a href="#" class="nav-signin">
+                <div class="top-line">Hello, sign in</div>
+                <div class="bottom-line">Account & Lists</div>
+            </a>
+
+            <a href="#" class="nav-orders">
+                <div class="top-line">Returns</div>
+                <div class="bottom-line">& Orders</div>
+            </a>
+
+            <a href="#" class="nav-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Cart</span>
+            </a>
+        </nav>
+
+        <!-- SECONDARY NAVBAR -->
+        <div class="sub-navbar">
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-bars"></i> All</a></li>
+                <li><a href="fresh.html">Fresh</a></li>
+                <li><a href="zovapay.html" style="font-weight: bold; border-bottom: 2px solid white;">Zova Pay</a></li>
+                <li><a href="#">Mobiles</a></li>
+                <li><a href="#">Today's Deals</a></li>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">New Releases</a></li>
+                <li><a href="#">Customer Service</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ZOVA PAY SUB-HEADER -->
+    <div class="zovapay-header">
+        <div class="zovapay-logo">zova<span>pay</span></div>
+    </div>
+
+    <!-- MAIN DASHBOARD CONTAINER -->
+    <div class="main-container">
+
+        <!-- LEFT SIDEBAR: WALLET & BALANCE -->
+        <aside class="wallet-card">
+            <div class="wallet-header">
+                <span class="wallet-title">Zova Pay Balance</span>
+                <span class="wallet-balance">₹0.00</span>
+            </div>
+            <div class="wallet-actions">
+                <a href="#" class="wallet-action-item">
+                    <i class="fa-solid fa-circle-plus"></i> Add Money
+                </a>
+                <a href="#" class="wallet-action-item">
+                    <i class="fa-solid fa-gift"></i> Add Gift Card
+                </a>
+                <a href="#" class="wallet-action-item">
+                    <i class="fa-solid fa-gear"></i> Account Settings
+                </a>
+            </div>
+        </aside>
+
+        <!-- RIGHT CONTENT AREA -->
+        <div class="pay-content">
+
+            <!-- TRAVEL SECTION -->
+            <section class="pay-section-box">
+                <h3>Travel</h3>
+                <div class="services-grid">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-plane"></i></div>
+                        <span class="service-name">Flights</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-bus"></i></div>
+                        <span class="service-name">Bus Tickets</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-train"></i></div>
+                        <span class="service-name">Trains</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-hotel"></i></div>
+                        <span class="service-name">Hotels</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- RECHARGES SECTION -->
+            <section class="pay-section-box">
+                <h3>Recharges</h3>
+                <div class="services-grid">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                        <span class="service-name">Mobile Recharge</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-brands fa-apple"></i></div>
+                        <span class="service-name">App Store Code</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-satellite-dish"></i></div>
+                        <span class="service-name">DTH Recharge</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-brands fa-google-play"></i></div>
+                        <span class="service-name">Google Play Recharge</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- BILL PAYMENTS SECTION -->
+            <section class="pay-section-box">
+                <h3>Bill Payments</h3>
+                <div class="services-grid">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-lightbulb"></i></div>
+                        <span class="service-name">Electricity</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-mobile"></i></div>
+                        <span class="service-name">Mobile Postpaid</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-credit-card"></i></div>
+                        <span class="service-name">Credit Card Bill</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                        <span class="service-name">Loan Repayment</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-fire-burner"></i></div>
+                        <span class="service-name">LPG</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                        <span class="service-name">Insurance Premium</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-faucet-drip"></i></div>
+                        <span class="service-name">Piped Gas</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-droplet"></i></div>
+                        <span class="service-name">Water Bill</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- DAILY TRANSIT SECTION -->
+            <section class="pay-section-box">
+                <h3>Daily Transit</h3>
+                <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-road"></i></div>
+                        <span class="service-name">Zova Pay FASTag</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-ticket"></i></div>
+                        <span class="service-name">FASTag Recharge</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-train-subway"></i></div>
+                        <span class="service-name">Metro Recharge</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- INSURANCE SECTION -->
+            <section class="pay-section-box">
+                <h3>Insurance</h3>
+                <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-car"></i></div>
+                        <span class="service-name">Car Insurance</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-motorcycle"></i></div>
+                        <span class="service-name">Bike Insurance</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="service-name">Health Insurance</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- GIFT CARDS & VOUCHERS -->
+            <section class="pay-section-box">
+                <h3>Gift cards and Vouchers</h3>
+                <div class="services-grid">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-gift"></i></div>
+                        <span class="service-name">Add Gift Card</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-box-open"></i></div>
+                        <span class="service-name">Gift Cards</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-ticket-simple"></i></div>
+                        <span class="service-name">Zova Vouchers</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-tags"></i></div>
+                        <span class="service-name">Brand Vouchers</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- MANAGE SECTION -->
+            <section class="pay-section-box">
+                <h3>Manage</h3>
+                <div class="services-grid">
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-receipt"></i></div>
+                        <span class="service-name">Your Transactions</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-award"></i></div>
+                        <span class="service-name">Your Rewards</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-percent"></i></div>
+                        <span class="service-name">EMI</span>
+                    </a>
+                    <a href="#" class="service-item">
+                        <div class="service-icon-box"><i class="fa-solid fa-credit-card"></i></div>
+                        <span class="service-name">Your Saved Cards</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- PROMO BANNER 1 -->
+            <div class="promo-banner-card">
+                <div class="promo-banner-text">
+                    <h3>Pay anyone, anywhere</h3>
+                </div>
+                <div class="promo-banner-img">
+                    <i class="fa-solid fa-mobile-screen-button" style="font-size: 50px; color: #111;"></i>
+                </div>
+            </div>
+
+            <!-- PROMO BANNER 2 -->
+            <div class="promo-banner-card">
+                <div class="promo-banner-text">
+                    <h3>Pay bills or recharge</h3>
+                </div>
+                <div class="promo-banner-img">
+                    <i class="fa-solid fa-file-invoice-dollar" style="font-size: 50px; color: #111;"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+            Back to top
+        </div>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Get to Know Us</h4>
+                <ul>
+                    <li><a href="about.html">About Zova</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Zova Science</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect with Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Make Money with Us</h4>
+                <ul>
+                    <li><a href="#">Sell on Zova</a></li>
+                    <li><a href="#">Protect and Build Your Brand</a></li>
+                    <li><a href="#">Advertise Your Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Let Us Help You</h4>
+                <ul>
+                    <li><a href="#">Your Account</a></li>
+                    <li><a href="#">Returns Centre</a></li>
+                    <li><a href="#">100% Purchase Protection</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 1996-2026, Zova.com, Inc. or its affiliates</p>
+        </div>
+    </footer>
+
+</body>
+</html>

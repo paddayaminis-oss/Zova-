@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zova Dresses - Women's, Men's & Kids Fashion</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #eaeded; /* Light store background */
+        }
+
+        /* --- PRIMARY NAVBAR --- */
+        .navbar {
+            background-color: #131921; 
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            height: 60px;
+        }
+
+        .nav-logo a {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-location {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .nav-location:hover {
+            border: 1px solid white;
+        }
+        .nav-location i {
+            font-size: 18px;
+            margin-right: 3px;
+            color: #ff9900;
+        }
+        .location-text .line-1 {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .location-text .line-2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-search {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .search-select {
+            background-color: #f3f3f3;
+            border: none;
+            padding: 10px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #111;
+        }
+        .search-button:hover {
+            background-color: #f3a847;
+        }
+
+        .nav-lang {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .nav-lang select {
+            background: transparent;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin-left: 4px;
+        }
+
+        .nav-signin, .nav-orders, .nav-cart {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-signin:hover, .nav-orders:hover, .nav-cart:hover {
+            border: 1px solid white;
+        }
+        .nav-signin .top-line, .nav-orders .top-line {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .nav-signin .bottom-line, .nav-orders .bottom-line {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-cart {
+            display: flex;
+            align-items: flex-end;
+            font-weight: bold;
+        }
+        .nav-cart i {
+            font-size: 28px;
+            color: #ff9900;
+        }
+        .cart-count {
+            position: relative;
+            top: -12px;
+            left: -15px;
+            color: #ff9900;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .cart-text {
+            font-size: 14px;
+            margin-left: -5px;
+        }
+
+        /* --- SECONDARY NAVBAR --- */
+        .sub-navbar {
+            background-color: #232f3e;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+        .sub-navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        .sub-navbar li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .sub-navbar li a:hover {
+            border: 1px solid white;
+        }
+
+        /* --- FASHION CATEGORY CHIPS BAR --- */
+        .fashion-filter-bar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #d5d9d9;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        .chip {
+            background-color: #f0f2f2;
+            border: 1px solid #d5d9d9;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #0f1111;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .chip:hover, .chip.active {
+            background-color: #232f3e;
+            color: white;
+            border-color: #232f3e;
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-layout {
+            max-width: 1500px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+        }
+
+        /* SIDEBAR FILTERS */
+        .sidebar-filters {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            height: fit-content;
+            border: 1px solid #d5d9d9;
+        }
+        .filter-group {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .filter-group h4 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #0f1111;
+            margin-bottom: 10px;
+        }
+        .filter-group ul {
+            list-style: none;
+        }
+        .filter-group ul li {
+            margin-bottom: 6px;
+        }
+        .filter-group ul li a {
+            color: #0f1111;
+            text-decoration: none;
+        }
+        .filter-group ul li a:hover {
+            color: #c45500;
+            text-decoration: underline;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        .size-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .size-pill {
+            border: 1px solid #d5d9d9;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            background: #f7fafa;
+        }
+        .size-pill:hover {
+            background: #e3e6e6;
+            border-color: #888;
+        }
+
+        /* PRODUCTS CONTENT AREA */
+        .fashion-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .fashion-hero-banner {
+            background: linear-gradient(135deg, #232f3e 0%, #37475a 100%);
+            border-radius: 8px;
+            padding: 35px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .fashion-hero-banner h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .fashion-hero-banner p {
+            color: #ff9900;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* PRODUCT GRID */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #d5d9d9;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #cc0c39;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 2px;
+        }
+        .product-img-container {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .product-img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .brand-name {
+            font-size: 12px;
+            font-weight: bold;
+            color: #565959;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .product-title {
+            font-size: 13px;
+            color: #007185;
+            line-height: 1.3;
+            height: 34px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        .product-title:hover {
+            color: #c45500;
+            text-decoration: underline;
+        }
+        .product-rating {
+            font-size: 12px;
+            color: #ffa41c;
+            margin-bottom: 6px;
+        }
+        .product-rating span {
+            color: #007185;
+            margin-left: 4px;
+        }
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0f1111;
+        }
+        .product-price span {
+            font-size: 12px;
+            vertical-align: super;
+        }
+        .mrp {
+            font-size: 12px;
+            color: #565959;
+            text-decoration: line-through;
+        }
+        .add-cart-btn {
+            background-color: #ffd814;
+            border: 1px solid #fcd200;
+            border-radius: 20px;
+            padding: 8px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .add-cart-btn:hover {
+            background-color: #f7ca00;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #131921;
+            color: white;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        .footer-top {
+            background-color: #37475a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .footer-top:hover {
+            background-color: #485769;
+        }
+        .footer-links {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 40px 20px;
+            gap: 30px;
+        }
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            background-color: #10141b;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRIMARY NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">Zova</a>
+            </div>
+
+            <div class="nav-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="location-text">
+                    <div class="line-1">Delivering to Hyderabad 500050</div>
+                    <div class="line-2">Update Location</div>
+                </div>
+            </div>
+
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                    <option>Fashion</option>
+                    <option>Women's Dresses</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Search Zova.in">
+                <button class="search-button">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-lang">
+                <i class="fa-solid fa-globe"></i>
+                <select>
+                    <option value="EN">EN</option>
+                    <option value="HI">HI</option>
+                    <option value="TE">TE</option>
+                </select>
+            </div>
+
+            <a href="#" class="nav-signin">
+                <div class="top-line">Hello, sign in</div>
+                <div class="bottom-line">Account & Lists</div>
+            </a>
+
+            <a href="#" class="nav-orders">
+                <div class="top-line">Returns</div>
+                <div class="bottom-line">& Orders</div>
+            </a>
+
+            <a href="#" class="nav-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Cart</span>
+            </a>
+        </nav>
+
+        <!-- SECONDARY NAVBAR -->
+        <div class="sub-navbar">
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-bars"></i> All</a></li>
+                <li><a href="fresh.html">Fresh</a></li>
+                <li><a href="zovapay.html">Zova Pay</a></li>
+                <li><a href="zovamobiles.html">Mobiles</a></li>
+                <li><a href="todaysdeals.html">Today's Deals</a></li>
+                <li><a href="dresses.html" style="font-weight: bold; border-bottom: 2px solid white;">Dresses & Fashion</a></li>
+                <li><a href="customerservice.html">Customer Service</a></li>
+            </ul>
+        </div>
+
+        <!-- FASHION FILTER CHIPS BAR -->
+        <div class="fashion-filter-bar">
+            <a href="#" class="chip active">All Dresses</a>
+            <a href="#" class="chip">Western Wear</a>
+            <a href="#" class="chip">Ethnic & Kurtis</a>
+            <a href="#" class="chip">Party Wear</a>
+            <a href="#" class="chip">Casual Summer Dresses</a>
+            <a href="#" class="chip">Maxi Dresses</a>
+            <a href="#" class="chip">Designer Gowns</a>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+
+        <!-- SIDEBAR FILTERS -->
+        <aside class="sidebar-filters">
+            <div class="filter-group">
+                <h4>Department</h4>
+                <ul>
+                    <li><a href="#">Women's Fashion</a></li>
+                    <li style="margin-left: 10px; margin-top: 5px;"><a href="#"><strong>Clothing & Dresses</strong></a></li>
+                    <li style="margin-left: 20px; margin-top: 4px;"><a href="#">Maxi Dresses</a></li>
+                    <li style="margin-left: 20px; margin-top: 4px;"><a href="#">A-Line Dresses</a></li>
+                    <li style="margin-left: 20px; margin-top: 4px;"><a href="#">Bodycon Dresses</a></li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h4>Size</h4>
+                <div class="size-pills">
+                    <div class="size-pill">XS</div>
+                    <div class="size-pill">S</div>
+                    <div class="size-pill">M</div>
+                    <div class="size-pill">L</div>
+                    <div class="size-pill">XL</div>
+                    <div class="size-pill">XXL</div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Brands</h4>
+                <label class="checkbox-label"><input type="checkbox"> ZARA</label>
+                <label class="checkbox-label"><input type="checkbox"> H&M</label>
+                <label class="checkbox-label"><input type="checkbox"> BIBA</label>
+                <label class="checkbox-label"><input type="checkbox"> Libas</label>
+                <label class="checkbox-label"><input type="checkbox"> Lymio</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price</h4>
+                <ul>
+                    <li><a href="#">Under ₹500</a></li>
+                    <li><a href="#">₹500 - ₹1,000</a></li>
+                    <li><a href="#">₹1,000 - ₹2,500</a></li>
+                    <li><a href="#">Over ₹2,500</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- CONTENT AREA -->
+        <main class="fashion-content">
+            <!-- HERO BANNER -->
+            <div class="fashion-hero-banner">
+                <div>
+                    <h2>Zova Mega Fashion Fest</h2>
+                    <p>Up to 70% Off on Trending Dresses & Styles</p>
+                </div>
+                <i class="fa-solid fa-shirt" style="font-size: 65px; color: #ffd814;"></i>
+            </div>
+
+            <!-- PRODUCT GRID -->
+            <div class="product-grid">
+
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <span class="discount-badge">65% OFF</span>
+                    <div class="product-img-container">
+                        <img class="product-img" src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80" alt="Floral Dress">
+                    </div>
+                    <div>
+                        <div class="brand-name">ZARA</div>
+                        <a href="#" class="product-title">Women's Floral Printed A-Line Midi Dress with Belt</a>
+                        <div class="product-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <span>4,210</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="product-price"><span>₹</span>799</span>
+                            <span class="mrp">₹2,299</span>
+                        </div>
+                    </div>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <span class="discount-badge">50% OFF</span>
+                    <div class="product-img-container">
+                        <img class="product-img" src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=400&q=80" alt="Party Wear Dress">
+                    </div>
+                    <div>
+                        <div class="brand-name">H&M</div>
+                        <a href="#" class="product-title">Elegant Satin Wrap Party Dress for Women</a>
+                        <div class="product-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                            <span>1,850</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="product-price"><span>₹</span>1,249</span>
+                            <span class="mrp">₹2,499</span>
+                        </div>
+                    </div>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <span class="discount-badge">70% OFF</span>
+                    <div class="product-img-container">
+                        <img class="product-img" src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=400&q=80" alt="Casual Dress">
+                    </div>
+                    <div>
+                        <div class="brand-name">Libas</div>
+                        <a href="#" class="product-title">Ethnic Cotton Printed Straight Kurta & Dress Set</a>
+                        <div class="product-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span>6,320</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="product-price"><span>₹</span>599</span>
+                            <span class="mrp">₹1,999</span>
+                        </div>
+                    </div>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <span class="discount-badge">55% OFF</span>
+                    <div class="product-img-container">
+                        <img class="product-img" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80" alt="Maxi Dress">
+                    </div>
+                    <div>
+                        <div class="brand-name">BIBA</div>
+                        <a href="#" class="product-title">Boho Summer Beach Maxi Dress with V-Neck</a>
+                        <div class="product-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i>
+                            <span>940</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="product-price"><span>₹</span>1,099</span>
+                            <span class="mrp">₹2,449</span>
+                        </div>
+                    </div>
+                    <button class="add-cart-btn">Add to Cart</button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+            Back to top
+        </div>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Get to Know Us</h4>
+                <ul>
+                    <li><a href="#">About Zova</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect with Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Make Money with Us</h4>
+                <ul>
+                    <li><a href="#">Sell on Zova</a></li>
+                    <li><a href="#">Advertise Your Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Let Us Help You</h4>
+                <ul>
+                    <li><a href="#">Your Account</a></li>
+                    <li><a href="#">Returns Centre</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 1996-2026, Zova.com, Inc. or its affiliates</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,1 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Zova E-Commerce</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
+        body {
+            background-color: #eaeded; /* Light store background */
+            color: #0f1111;
+        }
+
+        /* --- PRIMARY NAVBAR --- */
+        .navbar {
+            background-color: #131921; 
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            height: 60px;
+        }
+
+        .nav-logo a {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-location {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .nav-location:hover {
+            border: 1px solid white;
+        }
+        .nav-location i {
+            font-size: 18px;
+            margin-right: 3px;
+            color: #ff9900;
+        }
+        .location-text .line-1 {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .location-text .line-2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-search {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .search-select {
+            background-color: #f3f3f3;
+            border: none;
+            padding: 10px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #111;
+        }
+        .search-button:hover {
+            background-color: #f3a847;
+        }
+
+        .nav-lang {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .nav-lang select {
+            background: transparent;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin-left: 4px;
+        }
+
+        .nav-signin, .nav-orders, .nav-cart {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-signin:hover, .nav-orders:hover, .nav-cart:hover {
+            border: 1px solid white;
+        }
+        .nav-signin .top-line, .nav-orders .top-line {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .nav-signin .bottom-line, .nav-orders .bottom-line {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-cart {
+            display: flex;
+            align-items: flex-end;
+            font-weight: bold;
+        }
+        .nav-cart i {
+            font-size: 28px;
+            color: #ff9900;
+        }
+        .cart-count {
+            position: relative;
+            top: -12px;
+            left: -15px;
+            color: #ff9900;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .cart-text {
+            font-size: 14px;
+            margin-left: -5px;
+        }
+
+        /* --- SECONDARY NAVBAR --- */
+        .sub-navbar {
+            background-color: #232f3e;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+        .sub-navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        .sub-navbar li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .sub-navbar li a:hover {
+            border: 1px solid white;
+        }
+
+        /* --- ABOUT US CONTENT --- */
+        .about-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, #232f3e 0%, #37475a 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .about-hero h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        .about-hero h1 span {
+            color: #ff9900;
+        }
+        .about-hero p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .about-section {
+            background: white;
+            border: 1px solid #d5d9d9;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .about-section h2 {
+            font-size: 24px;
+            color: #0f1111;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #febd69;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        .about-section p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* VALUES GRID */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .value-card {
+            background: #f7fafa;
+            border: 1px solid #e7e7e7;
+            border-radius: 6px;
+            padding: 25px;
+            text-align: center;
+        }
+        .value-card i {
+            font-size: 32px;
+            color: #ff9900;
+            margin-bottom: 15px;
+        }
+        .value-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #0f1111;
+        }
+        .value-card p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #131921;
+            color: white;
+            font-size: 14px;
+            margin-top: 50px;
+        }
+        .footer-top {
+            background-color: #37475a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .footer-top:hover {
+            background-color: #485769;
+        }
+        .footer-links {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 40px 20px;
+            gap: 30px;
+        }
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            background-color: #10141b;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRIMARY NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">Zova</a>
+            </div>
+
+            <div class="nav-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="location-text">
+                    <div class="line-1">Delivering to Hyderabad 500050</div>
+                    <div class="line-2">Update Location</div>
+                </div>
+            </div>
+
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                    <option>About Us</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Search Zova.in">
+                <button class="search-button">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-lang">
+                <i class="fa-solid fa-globe"></i>
+                <select>
+                    <option value="EN">EN</option>
+                    <option value="HI">HI</option>
+                    <option value="TE">TE</option>
+                </select>
+            </div>
+
+            <a href="#" class="nav-signin">
+                <div class="top-line">Hello, sign in</div>
+                <div class="bottom-line">Account & Lists</div>
+            </a>
+
+            <a href="#" class="nav-orders">
+                <div class="top-line">Returns</div>
+                <div class="bottom-line">& Orders</div>
+            </a>
+
+            <a href="#" class="nav-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Cart</span>
+            </a>
+        </nav>
+
+        <!-- SECONDARY NAVBAR -->
+        <div class="sub-navbar">
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-bars"></i> All</a></li>
+                <li><a href="fresh.html">Fresh</a></li>
+                <li><a href="zovapay.html">Zova Pay</a></li>
+                <li><a href="zovamobiles.html">Mobiles</a></li>
+                <li><a href="todaysdeals.html">Today's Deals</a></li>
+                <li><a href="dresses.html">Dresses</a></li>
+                <li><a href="customerservice.html">Customer Service</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ABOUT MAIN CONTENT -->
+    <div class="about-container">
+
+        <!-- HERO BANNER -->
+        <div class="about-hero">
+            <h1>Welcome to <span>Zova</span></h1>
+            <p>Your premier destination for effortless shopping, lightning-fast grocery delivery, secure payments, and unbeatable festival deals.</p>
+        </div>
+
+        <!-- OUR STORY -->
+        <div class="about-section">
+            <h2>Our Story</h2>
+            <p>Founded with a vision to redefine the digital commerce experience, Zova brings together a massive catalog of products ranging from farm-fresh vegetables and trendy fashion wear to high-end electronics and seamless digital bill payments through Zova Pay.</p>
+            <p>Driven by customer-centric innovation and cutting-edge web architecture, our mission is to empower shoppers everywhere with speed, trust, and exceptional variety right at their fingertips.</p>
+        </div>
+
+        <!-- OUR CORE VALUES -->
+        <div class="about-section">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>Speed & Reliability</h3>
+                    <p>Ensuring ultra-fast delivery options from groceries to electronics right when you need them.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Trust & Security</h3>
+                    <p>Providing 100% purchase protection and secure payment gateways via Zova Pay.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-face-smile"></i>
+                    <h3>Customer First</h3>
+                    <p>Dedicated 24/7 customer support and hassle-free returns to make your shopping smooth.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUR ECOSYSTEM -->
+        <div class="about-section">
+            <h2>The Zova Ecosystem</h2>
+            <p><strong>Zova Store:</strong> Explore thousands of items across mobiles, computers, home goods, and apparel with daily festival deals.</p>
+            <p><strong>Zova Fresh:</strong> Get farm-fresh fruits, vegetables, and household essentials delivered straight to your doorstep.</p>
+            <p><strong>Zova Pay:</strong> Manage bills, mobile recharges, travel tickets, and wallet balances with zero hassle.</p>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+            Back to top
+        </div>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Get to Know Us</h4>
+                <ul>
+                    <li><a href="about.html">About Zova</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect with Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Make Money with Us</h4>
+                <ul>
+                    <li><a href="#">Sell on Zova</a></li>
+                    <li><a href="#">Advertise Your Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Let Us Help You</h4>
+                <ul>
+                    <li><a href="customerservice.html">Your Account</a></li>
+                    <li><a href="#">Returns Centre</a></li>
+                    <li><a href="customerservice.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 1996-2026, Zova.com, Inc. or its affiliates</p>
+        </div>
+    </footer>
+
+</body>
+</html>

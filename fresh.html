@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zova Fresh - Groceries & Vegetables</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #eaeded; /* Light background for store layout */
+        }
+
+        /* --- PRIMARY NAVBAR --- */
+        .navbar {
+            background-color: #131921; 
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            height: 60px;
+        }
+
+        .nav-logo a {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-location {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .nav-location:hover {
+            border: 1px solid white;
+        }
+        .nav-location i {
+            font-size: 18px;
+            margin-right: 3px;
+            color: #ff9900;
+        }
+        .location-text .line-1 {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .location-text .line-2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-search {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .search-badge {
+            background-color: #f3f3f3;
+            border-right: 1px solid #ddd;
+            padding: 10px 12px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #111;
+        }
+        .search-button:hover {
+            background-color: #f3a847;
+        }
+
+        .nav-lang {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .nav-lang select {
+            background: transparent;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin-left: 4px;
+        }
+
+        .nav-signin, .nav-orders, .nav-cart {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-signin:hover, .nav-orders:hover, .nav-cart:hover {
+            border: 1px solid white;
+        }
+        .nav-signin .top-line, .nav-orders .top-line {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .nav-signin .bottom-line, .nav-orders .bottom-line {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-cart {
+            display: flex;
+            align-items: flex-end;
+            font-weight: bold;
+        }
+        .nav-cart i {
+            font-size: 28px;
+            color: #ff9900;
+        }
+        .cart-count {
+            position: relative;
+            top: -12px;
+            left: -15px;
+            color: #ff9900;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .cart-text {
+            font-size: 14px;
+            margin-left: -5px;
+        }
+
+        /* --- SECONDARY FRESH NAVBAR --- */
+        .sub-navbar {
+            background-color: #232f3e;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            font-size: 14px;
+            border-top: 1px solid #3a4553;
+        }
+        .sub-navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        .sub-navbar li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .sub-navbar li a:hover {
+            border: 1px solid white;
+        }
+
+        /* Fresh Sub-Banner Info Bar */
+        .fresh-info-bar {
+            background-color: #e3edec;
+            color: #004d40;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* --- MAIN CONTENT CONTAINER --- */
+        .main-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* HERO BANNER SECTION (Fruits & Vegetables) */
+        .hero-banner {
+            position: relative;
+            background: linear-gradient(90deg, #1a2e1a 0%, #2e4d2e 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            min-height: 280px;
+        }
+        .hero-content h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+            letter-spacing: 0.5px;
+        }
+        .badge-green {
+            background-color: #388e3c;
+            color: white;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        .hero-features {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .hero-features span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        .order-now-btn {
+            background-color: #ffd814;
+            color: #111;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .order-now-btn:hover {
+            background-color: #f7ca00;
+        }
+        .hero-image img {
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* --- PRODUCT CAROUSEL / SECTION --- */
+        .product-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .section-header h3 {
+            font-size: 20px;
+            color: #111;
+        }
+        .section-header a {
+            color: #007185;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .section-header a:hover {
+            text-decoration: underline;
+            color: #c45500;
+        }
+
+        /* Product Grid Slider Layout */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+        .product-card {
+            border: 1px solid #e7e7e7;
+            border-radius: 6px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background: white;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #cc0c39;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 2px;
+        }
+        .product-img {
+            height: 140px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .product-title {
+            font-size: 13px;
+            color: #007185;
+            line-height: 1.3;
+            height: 34px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            margin-bottom: 6px;
+            text-decoration: none;
+        }
+        .product-title:hover {
+            color: #c45500;
+            text-decoration: underline;
+        }
+        .product-weight {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+        .product-rating {
+            font-size: 12px;
+            color: #ffa41c;
+            margin-bottom: 6px;
+        }
+        .product-rating span {
+            color: #007185;
+            margin-left: 4px;
+        }
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #0f1111;
+        }
+        .product-price span {
+            font-size: 11px;
+            vertical-align: super;
+        }
+
+        /* PROMO FOOTER CALLOUT */
+        .promo-footer-banner {
+            background-color: #ffffff;
+            border-top: 2px solid #388e3c;
+            border-bottom: 2px solid #388e3c;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+        .promo-footer-banner h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #111;
+        }
+        .signin-shop-btn {
+            background-color: #388e3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .signin-shop-btn:hover {
+            background-color: #2e7d32;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #131921;
+            color: white;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        .footer-top {
+            background-color: #37475a;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .footer-top:hover {
+            background-color: #485769;
+        }
+        .footer-links {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 40px 20px;
+            gap: 30px;
+        }
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            background-color: #10141b;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRIMARY NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">Zova</a>
+            </div>
+
+            <div class="nav-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="location-text">
+                    <div class="line-1">Delivering to Hyderabad 500050</div>
+                    <div class="line-2">Update Location</div>
+                </div>
+            </div>
+
+            <div class="nav-search">
+                <div class="search-badge">Amazon Fresh</div>
+                <input type="text" class="search-input" placeholder="Search Amazon.in">
+                <button class="search-button">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
+
+            <div class="nav-lang">
+                <i class="fa-solid fa-globe"></i>
+                <select>
+                    <option value="EN">EN</option>
+                    <option value="HI">HI</option>
+                    <option value="TE">TE</option>
+                </select>
+            </div>
+
+            <a href="#" class="nav-signin">
+                <div class="top-line">Hello, sign in</div>
+                <div class="bottom-line">Account & Lists</div>
+            </a>
+
+            <a href="#" class="nav-orders">
+                <div class="top-line">Returns</div>
+                <div class="bottom-line">& Orders</div>
+            </a>
+
+            <a href="#" class="nav-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Cart</span>
+            </a>
+        </nav>
+
+        <!-- SECONDARY FRESH NAVBAR -->
+        <div class="sub-navbar">
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-bars"></i> All</a></li>
+                <li><a href="fresh.html" style="font-weight: bold; border-bottom: 2px solid white;">Fresh</a></li>
+                <li><a href="zovapay.html">Zova Pay</a></li>
+                <li><a href="zovamobiles.html">Mobiles</a></li>
+                <li><a href="todaysdeals.html">Today's Deals</a></li>
+                <li><a href="zovamobiles.html">Electronics</a></li>
+                <li><a href="index.html">New Releases</a></li>
+                <li><a href="customerservice.html">Customer Service</a></li>
+            </ul>
+        </div>
+        <div class="fresh-info-bar">
+            To continue shopping for Fresh, choose another address.
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+
+        <!-- HERO BANNER (Fruits & Vegetables) -->
+        <div class="hero-banner">
+            <div class="hero-content">
+                <span class="badge-green">Great Prices</span>
+                <h2>Fruits & Vegetables</h2>
+                <div class="hero-features">
+                    <span><i class="fa-solid fa-seedling"></i> Farm Fresh</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> Clean & Hygienic</span>
+                    <span><i class="fa-solid fa-check-circle"></i> Safe</span>
+                </div>
+                <button class="order-now-btn">Order now <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <div class="hero-image">
+                <!-- Using placeholder imagery representing fresh produce layout from image reference -->
+                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" alt="Fresh Fruits and Vegetables">
+            </div>
+        </div>
+
+        <!-- CLEANING & HOUSEHOLD CATALOG SECTION -->
+        <section class="product-section">
+            <div class="section-header">
+                <h3>Cleaning & household</h3>
+                <a href="#">See Cleaning & household &gt;</a>
+            </div>
+            <div class="product-grid">
+                <!-- Item 1 -->
+                <div class="product-card">
+                    <span class="discount-badge">42% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/71Yv3x7h9IL._AC_UL320_.jpg" alt="Scrubber">
+                    <a href="#" class="product-title">Scotch-Brite 1 Stainless Steel Scrubber (15g) and 1 Scrub...</a>
+                    <div class="product-weight">1 Count</div>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span>9,800</span>
+                    </div>
+                    <div class="product-price"><span>₹</span>25</div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="product-card">
+                    <span class="discount-badge">7% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/61yB3a5W6TL._AC_UL320_.jpg" alt="Bathroom Brush">
+                    <a href="#" class="product-title">Scotch-Brite Bathroom Tile Scrubber Brush- Cleans Til...</a>
+                    <div class="product-weight">1 Count</div>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                        <span>27,418</span>
+                    </div>
+                    <div class="product-price"><span>₹</span>199</div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="product-card">
+                    <span class="discount-badge">6% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/719hLqf4b3L._AC_UL320_.jpg" alt="Gloves">
+                    <a href="#" class="product-title">Scotch-Brite Rubber Heavy Duty Hand gloves for Dish...</a>
+                    <div class="product-weight">2 Count</div>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span>38,983</span>
+                    </div>
+                    <div class="product-price"><span>₹</span>185</div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="product-card">
+                    <span class="discount-badge">2% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/71R22Xg6wmL._AC_UL320_.jpg" alt="Floor Cloth">
+                    <a href="#" class="product-title">Scotch-Brite Cotton Floor Cloth (Green)</a>
+                    <div class="product-weight">Large</div>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                        <span>1,228</span>
+                    </div>
+                    <div class="product-price"><span>₹</span>115</div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="product-card">
+                    <span class="discount-badge">2% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/81Pj6lYp9FL._AC_UL320_.jpg" alt="Sponge Wipes">
+                    <a href="#" class="product-title">Scotch-Brite Sponge Wipes- Reusable, Kitchen and Hou...</a>
+                    <div class="product-weight">3 Count</div>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span>23,406</span>
+                    </div>
+                    <div class="product-price"><span>₹</span>210</div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="product-card">
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/71u9sW1W7SL._AC_UL320_.jpg" alt="Lemon Gloves">
+                    <a href="#" class="product-title">Scotch-Brite Lemon Scented Kitchen Gloves, extra long...</a>
+                    <div class="product-weight">M (Pack of 2)</div>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                        <span>2,613</span>
+                    </div>
+                    <div class="product-price"><span>₹</span>230</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGN IN CALLOUT BANNER -->
+        <div class="promo-footer-banner">
+            <h3>Get your groceries delivered as fast as today</h3>
+            <a href="#" class="signin-shop-btn">Sign in to shop</a>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+            Back to top
+        </div>
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Get to Know Us</h4>
+                <ul>
+                    <li><a href="#">About Zova</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Zova Science</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect with Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Make Money with Us</h4>
+                <ul>
+                    <li><a href="#">Sell on Zova</a></li>
+                    <li><a href="#">Protect and Build Your Brand</a></li>
+                    <li><a href="#">Advertise Your Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Let Us Help You</h4>
+                <ul>
+                    <li><a href="#">Your Account</a></li>
+                    <li><a href="#">Returns Centre</a></li>
+                    <li><a href="#">100% Purchase Protection</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 1996-2026, Zova.com, Inc. or its affiliates</p>
+        </div>
+    </footer>
+
+</body>
+</html>

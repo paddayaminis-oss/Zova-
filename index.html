@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zova - Online Shopping</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #87CEEB; /* Sky blue background */
+        }
+
+        /* --- PRIMARY NAVBAR --- */
+        .navbar {
+            background-color: #131921; 
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            height: 60px;
+        }
+
+        .nav-logo a {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-location {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .nav-location:hover {
+            border: 1px solid white;
+        }
+        .nav-location i {
+            font-size: 18px;
+            margin-right: 3px;
+            color: #ff9900;
+        }
+        .location-text .line-1 {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .location-text .line-2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-search {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .search-select {
+            background-color: #f3f3f3;
+            border: none;
+            padding: 10px;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #111;
+        }
+        .search-button:hover {
+            background-color: #f3a847;
+        }
+
+        .nav-lang {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .nav-lang select {
+            background: transparent;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            margin-left: 4px;
+        }
+
+        .nav-signin, .nav-orders, .nav-cart {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-signin:hover, .nav-orders:hover, .nav-cart:hover {
+            border: 1px solid white;
+        }
+        .nav-signin .top-line, .nav-orders .top-line {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        .nav-signin .bottom-line, .nav-orders .bottom-line {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-cart {
+            display: flex;
+            align-items: flex-end;
+            font-weight: bold;
+        }
+        .nav-cart i {
+            font-size: 28px;
+            color: #ff9900;
+        }
+        .cart-count {
+            position: relative;
+            top: -12px;
+            left: -15px;
+            color: #ff9900;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .cart-text {
+            font-size: 14px;
+            margin-left: -5px;
+        }
+
+        /* --- SECONDARY NAVBAR --- */
+        .sub-navbar {
+            background-color: #232f3e;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+        .sub-navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+        .sub-navbar li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid transparent;
+        }
+        .sub-navbar li a:hover {
+            border: 1px solid white;
+        }
+        .sub-navbar .menu-icon {
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        /* --- SIDEBAR / ALL MENU DRAWER --- */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: none;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -360px;
+            width: 360px;
+            height: 100%;
+            background-color: white;
+            color: #111;
+            z-index: 1001;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.3);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            background-color: #232f3e;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-header i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 15px;
+            left: 375px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .sidebar-close.active {
+            display: block;
+        }
+
+        .sidebar-content {
+            padding: 10px 0;
+        }
+
+        .sidebar-section {
+            padding: 15px 25px;
+            border-bottom: 1px solid #d5d5d5;
+        }
+
+        .sidebar-section h3 {
+            font-size: 16px;
+            color: #111;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section ul li {
+            padding: 8px 0;
+        }
+
+        .sidebar-section ul li a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+            display: block;
+        }
+
+        .sidebar-section ul li a:hover {
+            color: #ff9900;
+            background-color: #eaeded;
+            padding-left: 5px;
+            transition: all 0.2s;
+        }
+
+        .see-all-link {
+            color: #007185 !important;
+            font-weight: bold;
+        }
+
+        /* --- MAIN CONTENT CONTAINER --- */
+        .main-container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HERO BANNER SECTION */
+        .hero-banner {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .hero-banner h1 {
+            font-size: 28px;
+            color: #131921;
+            margin-bottom: 10px;
+        }
+        .hero-banner p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* PRODUCT CATALOG GRID SECTION */
+        .catalog-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .catalog-header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #e7e7e7;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #cc0c39;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 2px;
+        }
+        .product-img {
+            height: 160px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+        .product-title {
+            font-size: 14px;
+            color: #007185;
+            line-height: 1.3;
+            height: 38px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        .product-title:hover {
+            color: #c45500;
+            text-decoration: underline;
+        }
+        .product-rating {
+            font-size: 12px;
+            color: #ffa41c;
+            margin-bottom: 8px;
+        }
+        .product-rating span {
+            color: #007185;
+            margin-left: 4px;
+        }
+        .product-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0f1111;
+        }
+        .product-price span {
+            font-size: 12px;
+            vertical-align: super;
+        }
+        .mrp {
+            font-size: 12px;
+            color: #565959;
+            text-decoration: line-through;
+        }
+        .add-to-cart-btn {
+            background-color: #ffd814;
+            border: 1px solid #fcd200;
+            border-radius: 20px;
+            padding: 8px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #f7ca00;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY & SIDEBAR -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div><i class="fa-solid fa-user-circle"></i> Hello, Sign In</div>
+        </div>
+        <div class="sidebar-content">
+            <!-- Trending -->
+            <div class="sidebar-section">
+                <h3>Trending</h3>
+                <ul>
+                    <li><a href="index.html">Bestsellers</a></li>
+                    <li><a href="index.html">New Releases</a></li>
+                </ul>
+            </div>
+
+            <!-- Digital Content and Devices -->
+            <div class="sidebar-section">
+                <h3>Digital Content and Devices</h3>
+                <ul>
+                    <li><a href="zovamobiles.html">Echo & Alexa</a></li>
+                    <li><a href="zovamobiles.html">Fire TV</a></li>
+                    <li><a href="index.html">Kindle E-Readers & eBooks</a></li>
+                    <li><a href="index.html">Audible Audiobooks</a></li>
+                    <li><a href="index.html">Amazon Prime Video</a></li>
+                    <li><a href="index.html">Amazon Music</a></li>
+                </ul>
+            </div>
+
+            <!-- Shop by Category -->
+            <div class="sidebar-section">
+                <h3>Shop by Category</h3>
+                <ul>
+                    <li><a href="zovamobiles.html">Mobiles, Computers</a></li>
+                    <li><a href="zovamobiles.html">TV, Appliances, Electronics</a></li>
+                    <li><a href="dresses.html">Men's Fashion</a></li>
+                    <li><a href="dresses.html">Women's Fashion</a></li>
+                    <li><a href="#" class="see-all-link">See all</a></li>
+                </ul>
+            </div>
+
+            <!-- Programs & Features -->
+            <div class="sidebar-section">
+                <h3>Programs & Features</h3>
+                <ul>
+                    <li><a href="zovapay.html">Gift Cards & Mobile Recharges</a></li>
+                    <li><a href="zovapay.html">Amazon Launchpad</a></li>
+                    <li><a href="zovapay.html">Amazon Business</a></li>
+                    <li><a href="fresh.html">Handloom and Handicrafts</a></li>
+                    <li><a href="#" class="see-all-link">See all</a></li>
+                </ul>
+            </div>
+
+            <!-- Help & Settings -->
+            <div class="sidebar-section" style="border-bottom: none;">
+                <h3>Help & Settings</h3>
+                <ul>
+                    <li><a href="#">Your Account</a></li>
+                    <li><a href="#">Customer Service</a></li>
+                    <li><a href="#">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <button class="sidebar-close" id="sidebarClose"><i class="fa-solid fa-xmark"></i></button>
+
+    <!-- PRIMARY NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <!-- 1. Zova Logo -->
+            <div class="nav-logo">
+                <a href="index.html">Zova</a>
+            </div>
+
+            <!-- 2. Location -->
+            <div class="nav-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="location-text">
+                    <div class="line-1">Delivering to Hyderabad</div>
+                    <div class="line-2">Update Location</div>
+                </div>
+            </div>
+
+            <!-- 3. Search Bar -->
+            <div class="nav-search">
+                <select class="search-select">
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                    <option>Home</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Search Zova.in">
+                <button class="search-button">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+            </div>
+
+            <!-- Language -->
+            <div class="nav-lang">
+                <i class="fa-solid fa-globe"></i>
+                <select>
+                    <option value="EN">EN</option>
+                    <option value="HI">HI</option>
+                    <option value="TE">TE</option>
+                </select>
+            </div>
+
+            <!-- 4. Sign In Option -->
+            <a href="#" class="nav-signin">
+                <div class="top-line">Hello, sign in</div>
+                <div class="bottom-line">Account & Lists</div>
+            </a>
+
+            <!-- 5. Returns & Orders -->
+            <a href="#" class="nav-orders">
+                <div class="top-line">Returns</div>
+                <div class="bottom-line">& Orders</div>
+            </a>
+
+            <!-- 6. Cart -->
+            <a href="#" class="nav-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Cart</span>
+            </a>
+        </nav>
+
+        <!-- SECONDARY NAVBAR (Connected to all pages) -->
+        <div class="sub-navbar">
+            <ul>
+                <li><a href="#" id="allMenuBtn"><i class="fa-solid fa-bars menu-icon"></i> All</a></li>
+                <li><a href="fresh.html">Fresh</a></li>
+                <li><a href="zovapay.html">Zova Pay</a></li>
+                <li><a href="zovamobiles.html">Mobiles</a></li>
+                <li><a href="todaysdeals.html">Today's Deals</a></li>
+                <li><a href="zovamobiles.html">Electronics</a></li>
+                <li><a href="index.html">New Releases</a></li>
+                <li><a href="customerservice.html">Customer Service</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="main-container">
+        <!-- Hero Welcome Banner -->
+        <div class="hero-banner">
+            <h1>Welcome to Zova - Your Ultimate Shopping Destination</h1>
+            <p>Explore Fresh Groceries, Zova Pay Services, Latest Mobiles, and Today's Best Deals!</p>
+        </div>
+
+        <!-- Featured Product Catalog Section -->
+        <section class="catalog-section">
+            <div class="catalog-header">Featured Products on Zova</div>
+            <div class="product-grid">
+                
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <span class="discount-badge">42% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/71Yv3x7h9IL._AC_UL320_.jpg" alt="Mattress Protector">
+                    <a href="#" class="product-title">Wakefit 100% Waterproof Terry Cotton Feel Mattress Protector</a>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span>9,800</span>
+                    </div>
+                    <div class="product-price-row">
+                        <span class="product-price"><span>₹</span>497</span>
+                        <span class="mrp">₹852</span>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <span class="discount-badge">60% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/61yB3a5W6TL._AC_UL320_.jpg" alt="Electric Kettle">
+                    <a href="#" class="product-title">Milton Rapid Electric Kettle 1.8L | 1500 Watts | Stainless Steel</a>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                        <span>27,418</span>
+                    </div>
+                    <div class="product-price-row">
+                        <span class="product-price"><span>₹</span>604</span>
+                        <span class="mrp">₹1,499</span>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <span class="discount-badge">44% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/61uA2uv7c1L._AC_UY320_.jpg" alt="Nothing Phone">
+                    <a href="#" class="product-title">Nothing Phone (4b) 5G (White, 8GB RAM, 128GB Storage)</a>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        <span>64</span>
+                    </div>
+                    <div class="product-price-row">
+                        <span class="product-price"><span>₹</span>30,740</span>
+                        <span class="mrp">₹54,999</span>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <span class="discount-badge">47% OFF</span>
+                    <img class="product-img" src="https://m.media-amazon.com/images/I/71u9sW1W7SL._AC_UL320_.jpg" alt="Havells Trimmer">
+                    <a href="#" class="product-title">Havells Beard & Hair 7 in 1 Trimmer | 2-in-1 Special Blade</a>
+                    <div class="product-rating">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                        <span>2,613</span>
+                    </div>
+                    <div class="product-price-row">
+                        <span class="product-price"><span>₹</span>949</span>
+                        <span class="mrp">₹1,792</span>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- JAVASCRIPT FOR SIDEBAR TOGGLE -->
+    <script>
+        const allMenuBtn = document.getElementById('allMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarClose = document.getElementById('sidebarClose');
+
+        function openSidebar(e) {
+            e.preventDefault();
+            sidebar.classList.add('active');
+            sidebarOverlay.style.display = 'block';
+            sidebarClose.classList.add('active');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.style.display = 'none';
+            sidebarClose.classList.remove('active');
+        }
+
+        allMenuBtn.addEventListener('click', openSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+        sidebarClose.addEventListener('click', closeSidebar);
+    </script>
+
+</body>
+</html>
