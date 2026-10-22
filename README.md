@@ -37,4 +37,4 @@ Make sure you have a modern web browser installed (Chrome, Firefox, Edge, etc.).
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git](https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git)
+   git clone [ https://github.com/paddayaminis-oss/Zova- ]
